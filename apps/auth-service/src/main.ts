@@ -8,11 +8,12 @@ async function bootstrap(){
   const USER = process.env.RABBITMQ_USER;
   const PASSWORD = process.env.RABBITMQ_PASSWORD;
   const HOST = process.env.RABBITMQ_HOST;
+  const QUEUE_AUTH = process.env.RABBITMQ_AUTH_QUEUE;
 
   app.connectMicroservice<MicroserviceOptions>({transport: Transport.RMQ,
   options: {
     urls: [`amqp://${USER}:${PASSWORD}@${HOST}`],
-    queue: 'auth_queue',
+    queue: QUEUE_AUTH,
     noAck: false,
     queueOptions: {
       durable: true

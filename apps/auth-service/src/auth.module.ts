@@ -11,6 +11,8 @@ import { ClientsModule, Transport } from "@nestjs/microservices";
 const USER = process.env.RABBITMQ_USER;
 const PASSWORD = process.env.RABBITMQ_PASSWORD;
 const HOST = process.env.RABBITMQ_HOST;
+const QUEUE_PROFILE = process.env.RABBITMQ_PROFILE_QUEUE;
+
 
 @Module({
   imports: [TypeOrmModule.forFeature([User, jwttoken]),
@@ -26,7 +28,7 @@ const HOST = process.env.RABBITMQ_HOST;
         transport: Transport.RMQ,
         options: {
           urls: [`amqp://${USER}:${PASSWORD}@${HOST}`],
-          queue: 'profile_queue',
+          queue: QUEUE_PROFILE,
           queueOptions: {
             durable: true,
           }}}]),

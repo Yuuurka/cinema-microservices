@@ -7,6 +7,9 @@ import { JwtService, JwtModule } from "@nestjs/jwt";
 const USER = process.env.RABBITMQ_USER;
 const PASSWORD = process.env.RABBITMQ_PASSWORD;
 const HOST = process.env.RABBITMQ_HOST;
+const QUEUE_AUTH = process.env.RABBITMQ_AUTH_QUEUE;
+const QUEUE_PROFILE = process.env.RABBITMQ_PROFILE_QUEUE;
+
 
 @Module({
   imports: [ConfigModule.forRoot({isGlobal: true, envFilePath: './.env'}),
@@ -16,7 +19,7 @@ const HOST = process.env.RABBITMQ_HOST;
         transport: Transport.RMQ,
         options: {
           urls: [`amqp://${USER}:${PASSWORD}@${HOST}`],
-          queue: 'auth_queue',
+          queue: QUEUE_AUTH,
           queueOptions: {
             durable: true,
           }}},
@@ -25,7 +28,7 @@ const HOST = process.env.RABBITMQ_HOST;
         transport: Transport.RMQ,
         options: {
           urls: [`amqp://${USER}:${PASSWORD}@${HOST}`],
-          queue: 'profile_queue',
+          queue: QUEUE_PROFILE,
           queueOptions: {
             durable: true,
           }}},

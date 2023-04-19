@@ -37,13 +37,13 @@ export class SecurityService{
     const passwordEquals = SecurityService.compare(userDto.password, user.password);
     if (passwordEquals) {
       return user;
+    }else{
+      throw new UnauthorizedException({
+        status: HttpStatus.BAD_REQUEST,
+        result: null,
+        error: 'Неверный логин или пароль'
+      })
     }
-
-    throw new UnauthorizedException({
-      status: HttpStatus.BAD_REQUEST,
-      result: null,
-      error: 'Неверный логин или пароль'
-    })
   }
 
   static hash(value: string) : string {
